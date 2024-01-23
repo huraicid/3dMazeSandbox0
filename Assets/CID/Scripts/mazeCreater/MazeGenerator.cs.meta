@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 6cec85077218fb94384dccdcb8bcb171
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - mazeCellPrefab: {fileID: 1350655708526822653, guid: 1803b3de2b58e244c8eb25996d919f3d, type: 3}
+  - root: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

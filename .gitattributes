@@ -1,0 +1,16 @@
+GamesTokyo/Library/PackageCache/com.unity.burst@1.8.7/.Runtime/libburst-llvm-15.dylib filter=lfs diff=lfs merge=lfs -text\
+Assets/CID/Fonts/NotoSansJP-Medium[[:space:]]SDF.asset filter=lfs diff=lfs merge=lfs -text
+*.dylib filter=lfs diff=lfs merge=lfs -text
+*.dll filter=lfs diff=lfs merge=lfs -text
+*.so filter=lfs diff=lfs merge=lfs -text
+Assets/Fonts/NotoSansJP-Regular[[:space:]]SDF.asset filter=lfs diff=lfs merge=lfs -text
+Assets/Fonts/NotoSansJP-Black[[:space:]]SDF.asset filter=lfs diff=lfs merge=lfs -text
+*.ai filter=lfs diff=lfs merge=lfs -text
+list filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.asset filter=lfs diff=lfs merge=lfs -text
+Assets/ALIKA/Fonts/JockeyOne-Regular filter=lfs diff=lfs merge=lfs -text
+SDF.asset filter=lfs diff=lfs merge=lfs -text
+Assets/ALIKA/Fonts/CevicheOne-Regular filter=lfs diff=lfs merge=lfs -text
+Assets/ALIKA/Fonts/Bungee-Regular filter=lfs diff=lfs merge=lfs -text
+Assets/ALIKA/Fonts/LuckiestGuy-Regular filter=lfs diff=lfs merge=lfs -text
