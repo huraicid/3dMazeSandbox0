@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManagerScript : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     // �t���A�����[�h����Ƃ��̏���
     void Start()

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MageManager : MonoBehaviour
+public class MazeManager : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
     public static UnityEvent onGoal = new UnityEvent();

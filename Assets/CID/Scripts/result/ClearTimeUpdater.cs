@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class crearTimeUpdater : MonoBehaviour
+public class CrearTimeUpdater : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

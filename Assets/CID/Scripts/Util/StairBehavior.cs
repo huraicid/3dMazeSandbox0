@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class stairBehavor : MonoBehaviour
+public class StairBehaviour : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
@@ -15,7 +15,7 @@ public class stairBehavor : MonoBehaviour
 
         // 次のフロアに進む（GameManagerに移譲する）
         GameObject gameManagerObject = GameObject.Find("GameManager");
-        GameManagerScript script = gameManagerObject.GetComponent<GameManagerScript>();
+        GameManager script = gameManagerObject.GetComponent<GameManager>();
         script.GoToNextFloor(targetSceneName);
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class resultButtonReceiverScript : MonoBehaviour
+public class ResultButtonReceiverScript : MonoBehaviour
 {
     void Update()
     {
