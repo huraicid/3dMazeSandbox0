@@ -7,12 +7,12 @@ public class ResultButtonReceiverScript : MonoBehaviour
 {
     void Update()
     {
-        // �X�y�[�X�L�[�������ꂽ�Ƃ��Q�[�����J�n����
+        // スペースキーが押されたときゲームを開始する
         if (Input.GetKeyDown(KeyCode.X))
         {
             Debug.Log("X key pressed!");
 
-            // �J�ڐ�̃V�[����ǂݍ���
+            // 遷移先のシーンを読み込む
             SceneManager.LoadScene("cid_entryPoint");
         }
     }

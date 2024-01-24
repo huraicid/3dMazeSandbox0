@@ -13,11 +13,11 @@ public class MazeGeneratorEditor : Editor
 
         MazeGenerator mazeGenerator = (MazeGenerator)target;
 
-        if(GUILayout.Button("���"))
+        if(GUILayout.Button("作る"))
         {
             mazeGenerator.GenerateMaze();
         }
-        if(GUILayout.Button("����"))
+        if(GUILayout.Button("消す"))
         {
             mazeGenerator.ClearMaze();
         }
