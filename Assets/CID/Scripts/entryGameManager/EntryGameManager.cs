@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+/// <summary>
+/// タイトル画面でのゲーム処理を管理するクラスです。
+/// </summary>
 
 public class EntryGameManager : MonoBehaviour
 {
