@@ -15,7 +15,7 @@ public class EntryGameManager : MonoBehaviour
             Debug.Log("Space key pressed!");
 
             // 各種データを初期化する
-            GameVariables.init();
+            GameVariables.Init();
 
             // 遷移先のシーンを読み込む
             SceneManager.LoadScene("mazeFloor");
