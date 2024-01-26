@@ -135,6 +135,6 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("floorUIScriptが取得できませんでした");
             return;
         }
-        script.updateFloorText();
+        script.UpdateFloorUI();
     }
 }
