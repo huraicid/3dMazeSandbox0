@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +5,7 @@ public class ResultButtonReceiver : MonoBehaviour
 {
     void Update()
     {
-        // スペースキーが押されたときゲームを開始する
+        // Xキーが押されたときタイトル画面に戻る
         if (Input.GetKeyDown(KeyCode.X))
         {
             Debug.Log("X key pressed!");
