@@ -75,7 +75,7 @@ public class MazeGenerator : MonoBehaviour
                 // 入口の座標は除く
                 if(x == 0 && y == 0) continue;
 
-                if(maze[x, y].isCulDeSac())
+                if(maze[x, y].IsCulDeSac())
                 {
                     stairList.Add(new Tuple<int, int>(x, y));
                     Debug.Log("候補：" + x + ", " + y);
@@ -95,7 +95,7 @@ public class MazeGenerator : MonoBehaviour
         stairObject.transform.localScale *= cellScale;
 
         // 階段を配置したセルの入り口によって階段の向きを変える
-        switch (maze[targetCell.Item1, targetCell.Item2].getCulDeSacEnterDirection())
+        switch (maze[targetCell.Item1, targetCell.Item2].GetCulDeSacEnterDirection())
         {
             case MazeCellModel.Wall.Top:
                 // -180度回転
