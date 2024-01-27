@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// タイマーを更新するスクリプトクラスです。
+/// </summary>
 public class TimerUpdater : MonoBehaviour
 {
     // TextMeshProオブジェクトへの参照
@@ -25,6 +26,7 @@ public class TimerUpdater : MonoBehaviour
             return;
         }
 
+        // タイマーをmm:ss.xx表記で更新します。
         float currentTime = GameVariables.currentTime;
         textMeshPro.text = string.Format("{0:D2}:{1:D2}.{2:D2}",
             (int) currentTime / 60,

@@ -1,25 +1,28 @@
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーを操作するスクリプトクラスです。
+/// </summary>
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private float moveSpeed = 3; // 移動速度
-    [SerializeField] private float jumpPower = 3; // ジャンプ力
+    [SerializeField] private float jumpPower = 0; // ジャンプ力
     private CharacterController _characterController; // CharacterControllerのキャッシュ
     private Transform _transform; // Transformのキャッシュ
     private Vector3 _moveVelocity; // キャラの移動速度情報
 
     private void Start()
     {
-        _characterController = GetComponent<CharacterController>(); // 毎フレームアクセスするので、負荷を下げるためにキャッシュしておく
-        _transform = transform; // Transformもキャッシュすると少しだけ負荷が下がる
+        // 毎フレームアクセスするので、負荷を下げるためにキャッシュしておく
+        // Transformもキャッシュすると少しだけ負荷が下がる
+        _characterController = GetComponent<CharacterController>(); 
+        _transform = transform; 
     }
 
     private void Update()
     {
-        //Debug.Log(_characterController.isGrounded ? "地上にいます" : "空中です");
-
         // 入力軸による移動処理（慣性を無視しているので、キビキビ動く）
         _moveVelocity.x = Input.GetAxis("Horizontal") * moveSpeed;
         _moveVelocity.z = Input.GetAxis("Vertical") * moveSpeed;

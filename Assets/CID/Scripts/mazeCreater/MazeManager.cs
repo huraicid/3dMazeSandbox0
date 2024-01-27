@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MageManager : MonoBehaviour
+/// <summary>
+/// 
+/// </summary>
+public class MazeManager : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
-    public static UnityEvent onGoal = new UnityEvent();
+    public static UnityEvent onGoal = new();
 
     private void Awake()
     {

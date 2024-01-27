@@ -1,28 +1,28 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManagerScript : MonoBehaviour
+/// <summary>
+/// ダンジョン内のゲーム処理を管理するクラスです。
+/// </summary>
+public class GameManager : MonoBehaviour
 {
-    // �t���A�����[�h����Ƃ��̏���
+    // フロアをロードするときの処理
     void Start()
     {
+        // タイマーが起動されていなければ起動する
         if(!GameVariables.isTimerActive)
         {
             GameVariables.isTimerActive = true;
         }
 
-        // �C�x���g�ɃC�x���g�n���h���[��ǉ�
-        SceneManager.sceneLoaded += SceneLoaded;
-        Debug.Log("�ǂݍ���OK");
-
+        // フロア情報が初期化前なら初期化する
         if (GameVariables.floor < 1)
         {
             GameVariables.floor = 1;
         }
 
-        // ���H�t���A�Ȃ���H�𐶐�
+        // 迷路フロアなら迷路を生成
         string currentSceneName = SceneManager.GetActiveScene().name;
         Debug.Log("Current Scene Name: " + currentSceneName);
         if (currentSceneName == "mazeFloor")
@@ -32,31 +32,35 @@ public class GameManagerScript : MonoBehaviour
             script.GenerateMaze();
         }
 
-        // Floor����UI���X�V
-        updateFloorUI();
+        // Floor情報のUIを更新
+        UpdateFloorUI();
 
     }
 
-    // �}�C�t���[�����s����鏈��
+    // マイフレーム実行される処理
     private void Update()
     {
-        // game abort
+        // Escキーが押されたときゲームを終了する
         if(Input.GetKeyDown(KeyCode.Escape))
         {
+            GameVariables.isTimerActive = false;
             SceneManager.LoadScene("cid_entryPoint");
         }
-        
-        // �Q�[���o�ߎ��Ԃ��v�Z
+
+        // ゲーム経過時間を計算
         if (GameVariables.isTimerActive)
         {
             GameVariables.currentTime += Time.deltaTime;
         }
     }
 
-    // ���̃t���A�ɐi�ނƂ��̏���
+    /// <summary>
+    /// 次のフロアに進むときの処理です。
+    /// </summary>
+    /// <param name="nextFloorName">次のフロアの名前</param>
     public void GoToNextFloor(string nextFloorName)
     {
-        Debug.Log("isGoal:" + (GameVariables.maxFloor == GameVariables.floor));
+        // 最上階から次のフロアに進むときはクリア画面に遷移する
         if(GameVariables.maxFloor == GameVariables.floor)
         {
             GameVariables.isTimerActive = false;
@@ -64,49 +68,45 @@ public class GameManagerScript : MonoBehaviour
             return;
         }
 
-        Debug.Log("GoToNextFloor()���Ăяo����܂����Bnext: " + nextFloorName);
-
-        // �t�F�[�h�A�E�g���J�n����
+        // フェードアウトを開始する
         FadeOut();
 
-        // �K����1���₷
+        // 階数を1つ増やす
         GameVariables.floor++;
 
-        // �J�ڐ�̃V�[����ǂݍ���
+        // 遷移先のシーンを読み込む
         Debug.Log("next floor: " +  nextFloorName);
         SceneManager.LoadScene(nextFloorName);
     }
 
-    // �t�F�[�h�A�E�g����
+    /// <summary>
+    /// フェードアウトします。
+    /// </summary>
     private void FadeOut()
     {
-        Image fadeImage = null;      // �t�F�[�h�p��UI�p�l���iImage�j
-        float fadeDuration = 10.0f;   // �t�F�[�h�̊����ɂ����鎞��
-
-        Debug.Log("FadeOut()���Ăяo����܂���");
+        Image fadeImage = null;      // フェード用のUIパネル（Image）
+        float fadeDuration = 10.0f;    // フェードの完了にかかる時間
 
         GameObject foundObject = GameObject.Find("Image");
-        // �擾����GameObject��null�łȂ����Ƃ��m�F
+        // 取得したGameObjectがnullでないことを確認
         if (foundObject == null)
         {
-            UnityEngine.Debug.LogWarning("�w�肳�ꂽ���O��GameObject��������܂���ł����B");
+            UnityEngine.Debug.LogWarning("指定された名前のGameObjectが見つかりませんでした。");
             return;
         }
-        Debug.Log("�t�F�[�h�A�E�g�p�̃Q�[���I�u�W�F�N�gOK");
 
-        // Image�R���|�[�l���g���擾
+        // Imageコンポーネントを取得
         Image imageComponent = foundObject.GetComponent<Image>();
         if (imageComponent == null)
         {
-            UnityEngine.Debug.LogWarning("GameObject��Image�R���|�[�l���g���A�^�b�`����Ă��܂���B");
+            UnityEngine.Debug.LogWarning("GameObjectにImageコンポーネントがアタッチされていません。");
             return;
         }
-        Debug.Log("�t�F�[�h�A�E�g�p��Image�R���|�[�l���gOK");
 
-        // �擾����Image�R���|�[�l���g���g�p����
+        // 取得したImageコンポーネントを使用する
         fadeImage = imageComponent;
 
-        // �t�F�[�h�A�E�g�̃A�j���[�V����
+        // フェードアウトのアニメーション
         float timer = 0f;
         while (timer < fadeDuration)
         {
@@ -116,32 +116,25 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    // �t���A�����擾����
-    private static void updateFloorUI()
+    /// <summary>
+    /// フロア情報を取得します。
+    /// </summary>
+    private static void UpdateFloorUI()
     {
+        // Floor UIを取得してアタッチしたScriptを実行
         GameObject floorTextObject = GameObject.Find("FloorText");
         if (floorTextObject == null)
         {
-            Debug.LogWarning("floorText���擾�ł��܂���ł���");
+            Debug.LogWarning("floorTextが取得できませんでした");
             return;
         }
-        Debug.Log("floor Text�擾�ł��܂���");
 
-        //
         FloorUIScript script = floorTextObject.GetComponent<FloorUIScript>();
         if (script == null)
         {
-            Debug.LogWarning("floorUIScript���擾�ł��܂���ł���");
+            Debug.LogWarning("floorUIScriptが取得できませんでした");
             return;
         }
-
-        script.updateFloorText();
-    }
-
-    // �C�x���g�n���h���[�i�C�x���g�������ɓ��������������j
-    void SceneLoaded(Scene nextScene, LoadSceneMode mode)
-    {
-        Debug.Log(nextScene.name);
-        Debug.Log(mode);
+        script.UpdateFloorUI();
     }
 }

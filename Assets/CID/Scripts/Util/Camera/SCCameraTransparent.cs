@@ -18,7 +18,6 @@
 /// 
 /// D. 以上の３項は、ソース・実行バイナリの双方に適用されます。
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;  // Except

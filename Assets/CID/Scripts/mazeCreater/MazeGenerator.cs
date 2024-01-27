@@ -2,18 +2,50 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 迷路生成スクリプトクラスです。
+/// </summary>
 public class MazeGenerator : MonoBehaviour
 {
+    /// <summary>
+    /// 迷路の幅、高さ
+    /// </summary>
     public int width, height;
-    private System.Random random = new System.Random();
+
+    /// <summary>
+    /// 迷路生成に用いる乱数生成インスタンス
+    /// </summary>
+    private readonly System.Random random = new();
+
+    /// <summary>
+    /// 迷路データ
+    /// </summary>
     private MazeCellModel[,] maze;
 
+    /// <summary>
+    /// 迷路のセルのPrefab
+    /// </summary>
     public GameObject mazeCellPrefab;
+
+    /// <summary>
+    /// 階段のPrefab
+    /// </summary>
     public GameObject mazeStairPrefab;
+
+    /// <summary>
+    /// 迷路を生成する先の親オブジェクト
+    /// </summary>
     [SerializeField] private Transform root;
+
+    /// <summary>
+    /// 迷路の拡大スケール
+    /// </summary>
     private float cellScale = 3f;
 
 
+    /// <summary>
+    /// 迷路データをすべて消去します。
+    /// </summary>
     public void ClearMaze()
     {
         List<GameObject> tempList = new List<GameObject>();
@@ -27,6 +59,9 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 迷路データを生成します（呼び出し元）。
+    /// </summary>
     public void GenerateMaze()
     {
         ClearMaze();
@@ -67,7 +102,7 @@ public class MazeGenerator : MonoBehaviour
         }
 
         // 階段オブジェクトを生成する場所候補を取得し、ランダムに階段を作成する
-        List<Tuple<int, int>> stairList = new List<Tuple<int, int>>();
+        List<Tuple<int, int>> stairList = new();
         for(int y = 0; y < width; y++)
         {
             for(int x = 0; x < height; x++)
@@ -75,7 +110,7 @@ public class MazeGenerator : MonoBehaviour
                 // 入口の座標は除く
                 if(x == 0 && y == 0) continue;
 
-                if(maze[x, y].isCulDeSac())
+                if(maze[x, y].IsCulDeSac())
                 {
                     stairList.Add(new Tuple<int, int>(x, y));
                     Debug.Log("候補：" + x + ", " + y);
@@ -95,7 +130,7 @@ public class MazeGenerator : MonoBehaviour
         stairObject.transform.localScale *= cellScale;
 
         // 階段を配置したセルの入り口によって階段の向きを変える
-        switch (maze[targetCell.Item1, targetCell.Item2].getCulDeSacEnterDirection())
+        switch (maze[targetCell.Item1, targetCell.Item2].GetCulDeSacEnterDirection())
         {
             case MazeCellModel.Wall.Top:
                 // -180度回転
@@ -121,17 +156,21 @@ public class MazeGenerator : MonoBehaviour
 
     }
 
-
-    private void GenerateMaze(int x, int y)
+    /// <summary>
+    /// 指定したサイズの迷路データを生成します。
+    /// </summary>
+    /// <param name="width">幅</param>
+    /// <param name="height">高さ</param>
+    private void GenerateMaze(int width, int height)
     {
-        MazeCellModel currentCell = maze[x, y];
+        MazeCellModel currentCell = maze[width, height];
         currentCell.visited = true;
 
         foreach (var direction in ShuffleDirections())
         {
-            int newX = x + direction.Item1;
-            int newY = y + direction.Item2;
-            if (newX >= 0 && newY >= 0 && newX < width && newY < height)
+            int newX = width + direction.Item1;
+            int newY = height + direction.Item2;
+            if (newX >= 0 && newY >= 0 && newX < this.width && newY < this.height)
             {
                 MazeCellModel neighbourCell = maze[newX, newY];
                 if (!neighbourCell.visited)
@@ -145,9 +184,16 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 迷路生成処理の中で壁を掘り進める方向を取得します。
+    /// </summary>
+    /// <returns>
+    /// 壁を掘り進める方向データ
+    /// </returns>
     private List<(int, int, MazeCellModel.Wall, MazeCellModel.Wall)> ShuffleDirections()
     {
-        List<(int, int, MazeCellModel.Wall, MazeCellModel.Wall)> directions = new List<(int, int, MazeCellModel.Wall, MazeCellModel.Wall)> {
+        List<(int, int, MazeCellModel.Wall, MazeCellModel.Wall)> directions = new()
+        {
             (0, 1, MazeCellModel.Wall.Top, MazeCellModel.Wall.Bottom),
             (0, -1, MazeCellModel.Wall.Bottom, MazeCellModel.Wall.Top),
             (-1, 0, MazeCellModel.Wall.Left, MazeCellModel.Wall.Right),
